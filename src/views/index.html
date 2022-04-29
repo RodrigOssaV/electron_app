@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="products"></div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        const products = document.querySelector('#products');
+
+        ipcRenderer.on('product:new', (event, newProduct) => {
+            const newProductTemplate = `
+                <div>
+                    <h5>${newProduct.name}</h5>
+                    <button class="btn btn-danger"> DELETE </button>
+                </div>
+            `;
+            products.innerHTML += newProductTemplate;
+            const btns = document.querySelectorAll('.btn.btn-danger');
+            btns.forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.target.parentElement.remove();
+                })
+            })
+        });
+
+        ipcRenderer.on('products:remove-all', e => {
+            products.innerHTML = '';
+        })
+    </script>
+</body>
+</html>

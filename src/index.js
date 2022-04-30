@@ -36,7 +36,7 @@ app.on('ready', () => {
 function createNewProductWindow(){
     newProductWindow = new BrowserWindow({
         width: 400,
-        height: 330,
+        height: 600,
         title: 'Add a New Product',
         webPreferences: {
             nodeIntegration: true,

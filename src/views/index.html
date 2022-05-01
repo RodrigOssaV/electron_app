@@ -34,9 +34,10 @@
     <script>
         const { ipcRenderer } = require('electron');
 
-        const products = document.querySelector('#products');
+        /* const products = document.querySelector('#products'); */
+        const clients = document.querySelector('#clients');
 
-        ipcRenderer.on('product:new', (event, newProduct) => {
+        /* ipcRenderer.on('product:new', (event, newProduct) => {
             const newProductTemplate = `
                     <tr>
                         <td>${newProduct.idCall}</td>
@@ -53,11 +54,29 @@
                     e.target.parentElement.remove();
                 })
             })
+        }); */
+        ipcRenderer.on('client:new', (event, newClient) => {
+            /* console.log(event);
+            console.log(newClient); */
+            const newClientTemplate = `
+            <div class="col-xs-4 p-2">
+                <div class="card text-header">
+                    <h5 class="card-title">${newClient.idCall}</h5>
+                </div>
+                <div class="card-body">
+                    ${newClient.comuna}
+                    <hr>
+                    ${newClient.name}
+                </div>
+            </div>
+            `;
+            clients.innerHTML += newClientTemplate;
+            
         });
 
-        ipcRenderer.on('products:remove-all', e => {
+        /* ipcRenderer.on('products:remove-all', e => {
             products.innerHTML = '';
-        })
+        }) */
     </script>
 </body>
 </html>

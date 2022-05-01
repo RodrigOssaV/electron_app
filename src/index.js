@@ -11,9 +11,12 @@ if(process.env.NODE_ENV !== 'production'){
 
 let mainWindow
 let newProductWindow
+let taskWindow
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -55,6 +58,26 @@ function createNewProductWindow(){
     })
 }
 
+function createTaskWindow(){
+    taskWindow = new BrowserWindow({
+        title: 'Task',
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    })
+    
+    taskWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'views/task.html'),
+        protocol: 'file',
+        slashes: true
+    }))
+
+    taskWindow.on('closed', () => {
+        taskWindow = null
+    })
+}
+
 ipcMain.on('product:new', (event, newProduct) => {
     mainWindow.webContents.send('product:new', newProduct)
     newProductWindow.close()
@@ -65,10 +88,17 @@ const templateMenu = [
         label: 'File',
         submenu: [
             {
-                label: 'New Product',
-                accelerator: 'Ctrl+N',
+                label: 'New Client',
+                accelerator: 'Ctrl+A',
                 click(){
                     createNewProductWindow()
+                }
+            },
+            {
+                label: 'Task',
+                accelerator: 'Ctrl+S',
+                click(){
+                    createTaskWindow()
                 }
             },
             {

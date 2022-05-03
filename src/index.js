@@ -55,6 +55,10 @@ function createNewProductWindow(){
 
     newProductWindow.on('closed', () => {
         newProductWindow = null
+        /* require('dialog').showMessageBox({
+            message: "Close button has been pressed!",
+            buttons: ["OK"]
+        }) */
     })
 }
 
@@ -80,8 +84,8 @@ function createTaskWindow(){
 
 ipcMain.on('product:new', (event, newProduct) => {
     mainWindow.webContents.send('product:new', newProduct)
-    newProductWindow.close()
-})
+    newProductWindow.close()    
+}) 
 
 const templateMenu = [
     {

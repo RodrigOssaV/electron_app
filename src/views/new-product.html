@@ -14,7 +14,7 @@
 <body>
     <div class="columns is-mobile">
         <div class="column">
-            <form class="p-4">
+            <form class="p-4" id="formNewClient">
                 <div class="field">
                     <input type="text" name="" id="idCall" class="input" placeholder="ID Call">
                 </div>
@@ -30,16 +30,18 @@
                 <div class="field">
                     <input type="text" name="" id="comuna" class="input" placeholder="Comuna">
                 </div>
-                <button class="button is-primary mt5 is-fullwidth">
+                <button class="button is-primary mt5 is-fullwidth" id="btnCreateClient">
                     Save
                 </button>
             </form>
+            <!-- 1 -->
+        </div>
+    </div>
 
     <script>
         const { ipcRenderer } = require('electron');
-
+        const db = require('../js/database');
         const form = document.querySelector('form');
-
         form.addEventListener('submit', event => {
             event.preventDefault();
             const idCall = document.querySelector('#idCall').value;
@@ -53,9 +55,35 @@
                 name: name,
                 rut: rut,
                 comuna: comuna
-            };        
+            };
+            db.addClient(idCall, phone, name, rut, comuna);
             ipcRenderer.send('product:new', newProduct);
         });
     </script>
+    
 </body>
 </html>
+
+<!-- 1 -->
+<!-- <script>
+        const { ipcRenderer } = require('electron');
+        const db = require('../js/database');
+        const form = document.querySelector('form');
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const idCall = document.querySelector('#idCall').value;
+            const phone = document.querySelector('#phone').value;
+            const name = document.querySelector('#name').value;
+            const rut = document.querySelector('#rut').value;
+            const comuna = document.querySelector('#comuna').value;
+            const newProduct = {
+                idCall: idCall,
+                phone: phone,
+                name: name,
+                rut: rut,
+                comuna: comuna
+            };
+            db.addClient(idCall, phone, name)
+            ipcRenderer.send('product:new', newProduct);
+        });
+    </script> -->

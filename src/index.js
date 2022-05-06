@@ -84,7 +84,7 @@ function createTaskWindow(){
 
 ipcMain.on('product:new', (event, newProduct) => {
     mainWindow.webContents.send('product:new', newProduct)
-    newProductWindow.close()    
+    /* newProductWindow.close() */    
 }) 
 
 const templateMenu = [

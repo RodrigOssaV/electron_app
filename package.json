@@ -19,7 +19,6 @@
   "homepage": "https://github.com/RodrigOssaV/electron_app#readme",
   "dependencies": {
     "electron": "^18.1.0",
-    "electron-reload": "^2.0.0-alpha.1",
-    "nedb": "^1.8.0"
+    "electron-reload": "^2.0.0-alpha.1"
   }
 }

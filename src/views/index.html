@@ -33,27 +33,11 @@
 
     <script>
         const { ipcRenderer } = require('electron');
-        const products = document.querySelector('#products');
-        const db = require('../js/database');
 
-        db.getClient((clients) => {
-            /* console.log(clients); */
-            for(const client of clients){
-                console.log(client)
-                const newProductTemplate = `
-                    <tr>
-                        <td>${client.idCall}</td>
-                        <td>${client.phone}</td>
-                        <td>${client.name}</td>
-                        <td>${client.rut}</td>
-                        <td>${client.comuna}</td>
-                    </tr>
-                `;
-                products.innerHTML += newProductTemplate;
-            }            
-        })
-        
-        /* ipcRenderer.on('product:new', (event, newProduct) => {
+        const products = document.querySelector('#products');
+        /* const clients = document.querySelector('#clients'); */
+
+        ipcRenderer.on('product:new', (event, newProduct) => {
             const newProductTemplate = `
                     <tr>
                         <td>${newProduct.idCall}</td>
@@ -73,7 +57,7 @@
         });
         ipcRenderer.on('products:remove-all', e => {
             products.innerHTML = '';
-        }) */
+        })
     </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
     <title>Tasks</title>
 </head>
 <body>
-    <div class="columns m-1 is-multiline">
+    <div class="columns m-1">
         <div class="column">
             <div class="field">
                 <label for="" class="label">SSTT Classic</label>
@@ -39,28 +39,18 @@
             </div>
             <div class="field">
                 <label for="" class="label">SSTT Advanced</label>
-                <div class="column is-two-fifths has-background-light">
+                <div class="column is-half">
                     <div class="control">
                         <input type="text" class="input" placeholder="ONT" id="ont">
                         <input type="text" class="input" placeholder="OLT" id="olt">
                         <input type="text" class="input" id="nodo" placeholder="NODO">
                     </div>
-                    
                 </div>
-                <div class="column is-half has-background-link">
-                    <div class="control">
-                        <div class="select is-fullwidth">
-                            <select name="" id="selectID">
-                                <option value="">Select ID</option>
-                            </select>
-                        </div>
-                        <button class="button is-primary is-fullwidth m1" id="btnSearch">
-                            Search
-                        </button>
-                    </div>
+                <div class="column is-half">
+
                 </div>
             </div>
-            <button class="button is-primary is-fullwidth m-5" id="btn">
+            <button class="button is-primary is-fullwidth mb-5" id="btn">
                 Generate
             </button>
 
@@ -69,22 +59,11 @@
     </div>
     <script>
         const { ipcRenderer } = require('electron');
-        const db = require('../js/database');
-        const selectID = document.querySelector('#selectID')
-
-        db.getClient((clients) => {
-            /* console.log(clients); */
-            for(const client of clients){
-                const newTemplateClient = `
-                    <option value="${client}" name="client">${client.idCall}</option>
-                `
-                selectID.innerHTML += newTemplateClient
-            }
-        })
 
         const btn = document.querySelector('#btn');
         const radioButtons = document.querySelectorAll('input[name="Test"]');
         const textarea = document.querySelector('#textarea');
+        /* console.log(radioButtons); */
         btn.addEventListener('click', () => {
             let selectedTest;
             let date = new Date();

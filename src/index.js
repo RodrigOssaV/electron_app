@@ -16,7 +16,7 @@ let taskWindow
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
         width: 800,
-        height: 600,
+        height: 400,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -64,6 +64,8 @@ function createNewProductWindow(){
 
 function createTaskWindow(){
     taskWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
         title: 'Task',
         webPreferences: {
             nodeIntegration: true,
@@ -84,8 +86,8 @@ function createTaskWindow(){
 
 ipcMain.on('product:new', (event, newProduct) => {
     mainWindow.webContents.send('product:new', newProduct)
-    newProductWindow.close()    
-}) 
+    /* newProductWindow.close()  */   
+})
 
 const templateMenu = [
     {

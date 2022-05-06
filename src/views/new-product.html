@@ -39,6 +39,8 @@
         const { ipcRenderer } = require('electron');
 
         const form = document.querySelector('form');
+        let newProduct = ''
+        let arrayProduct = []
 
         form.addEventListener('submit', event => {
             event.preventDefault();
@@ -53,9 +55,13 @@
                 name: name,
                 rut: rut,
                 comuna: comuna
-            };        
+            };
             ipcRenderer.send('product:new', newProduct);
-        });
+            let nuevoArray = arrayProduct.push(newProduct);
+            console.log(nuevoArray);
+            ipcRenderer.send('list:product', arrayProduct);
+        });        
+        
     </script>
 </body>
 </html>

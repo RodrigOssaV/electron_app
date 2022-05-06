@@ -15,7 +15,7 @@
                 <label for="" class="label">SSTT Classic</label>
                 <div class="control">
                     <label for="" class="radio">
-                        <input type="radio" name="Test" id="uno" value="LOS"> Luz LOS
+                        <input type="radio" name="Test" id="uno" value="1"> Luz LOS
                     </label>
                     <label for="" class="radio">
                         <input type="radio" name="Test" id="dos" value="2"> Deco Offline
@@ -59,6 +59,9 @@
     </div>
     <script>
         const { ipcRenderer } = require('electron');
+
+        let aux = Object.keys(localStorage).map(k => aux2 = localStorage.getItem(k))
+        console.log(aux2);
 
         const btn = document.querySelector('#btn');
         const radioButtons = document.querySelectorAll('input[name="Test"]');

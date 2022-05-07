@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="columns m-1 is-multiline">
-        <div class="column">
+        <div class="column is-half">
             <div class="field">
                 <label for="" class="label">SSTT Classic</label>
                 <div class="control">
@@ -37,34 +37,39 @@
                     </label>
                 </div>
             </div>
+
             <div class="field">
                 <label for="" class="label">SSTT Advanced</label>
-                <div class="column is-two-fifths has-background-light">
-                    <div class="control">
-                        <input type="text" class="input" placeholder="ONT" id="ont">
-                        <input type="text" class="input" placeholder="OLT" id="olt">
-                        <input type="text" class="input" id="nodo" placeholder="NODO">
-                    </div>
-                    
-                </div>
-                <div class="column is-half has-background-link">
-                    <div class="control">
-                        <div class="select is-fullwidth">
-                            <select name="" id="selectID">
-                                <option value="">Select ID</option>
-                            </select>
-                        </div>
-                        <button class="button is-primary is-fullwidth m1" id="btnSearch">
-                            Search
-                        </button>
-                    </div>
+                <div class="control">
+                    <input type="text" class="input" placeholder="ONT" id="ont">
+                    <input type="text" class="input" placeholder="OLT" id="olt">
+                    <input type="text" class="input" id="nodo" placeholder="NODO">
                 </div>
             </div>
-            <button class="button is-primary is-fullwidth m-5" id="btn">
+
+            <button class="button is-primary is-fullwidth" id="btn">
                 Generate
             </button>
 
-            <textarea name="" id="textarea" cols="30" rows="10" class="textarea"></textarea>
+            <textarea name="" id="textarea" cols="10" rows="10" class="textarea mt-1"></textarea>
+
+        </div>
+
+        <div class="column is-half">
+            <div class="control">
+                <div class="select is-fullwidth">
+                    <select name="client" id="selectID">
+                    </select>
+                </div>
+            </div>
+
+            <button class="button is-primary is-fullwidth mt-2" id="btnSearch">
+                Search
+            </button>
+
+            <div class="control">
+                <div class="box" id="box"></div>
+            </div>
         </div>
     </div>
     <script>
@@ -72,14 +77,21 @@
         const db = require('../js/database');
         const selectID = document.querySelector('#selectID')
 
-        db.getClient((clients) => {
-            /* console.log(clients); */
+        db.getClients((clients) => {
             for(const client of clients){
-                const newTemplateClient = `
-                    <option value="${client}" name="client">${client.idCall}</option>
+                const newTemplateClients = `
+                    <option value="${client.idCall}">${client.idCall}</option>
                 `
-                selectID.innerHTML += newTemplateClient
+                selectID.innerHTML += newTemplateClients
             }
+        })
+        const box = document.querySelector('#box')
+        btnSearch.addEventListener('click', () => {
+            const selectValue = selectID.value
+            db.getClient(selectValue, (e, obj) => {
+                console.log(obj)
+            })
+            /* console.log(selectValue) */
         })
 
         const btn = document.querySelector('#btn');

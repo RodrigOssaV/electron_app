@@ -36,10 +36,10 @@
         const products = document.querySelector('#products');
         const db = require('../js/database');
 
-        db.getClient((clients) => {
+        db.getClients((clients) => {
             /* console.log(clients); */
             for(const client of clients){
-                console.log(client)
+                /* console.log(client) */
                 const newProductTemplate = `
                     <tr>
                         <td>${client.idCall}</td>

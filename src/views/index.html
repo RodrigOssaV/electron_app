@@ -22,24 +22,27 @@
                         <th>Nombre</th>
                         <th>RUT</th>
                         <th>Comuna</th>
-                        <th>Opciones</th>
+                        <!-- <th>Opciones</th> -->
                     </tr>
                 </thead>
                 <tbody id="products">
                 </tbody>
             </table>
+            <button class="button is-info" id="deleteBtn">
+                Closed
+            </button>
         </div>
+        
     </div>
 
     <script>
         const { ipcRenderer } = require('electron');
         const products = document.querySelector('#products');
         const db = require('../js/database');
+        const deleteBtn = document.querySelector('#deleteBtn')
 
-        db.getClient((clients) => {
-            /* console.log(clients); */
+        db.getClients((clients) => {
             for(const client of clients){
-                console.log(client)
                 const newProductTemplate = `
                     <tr>
                         <td>${client.idCall}</td>
@@ -51,6 +54,10 @@
                 `;
                 products.innerHTML += newProductTemplate;
             }            
+        })
+
+        deleteBtn.addEventListener('click', () => {
+            db.deleteClients()
         })
         
         /* ipcRenderer.on('product:new', (event, newProduct) => {

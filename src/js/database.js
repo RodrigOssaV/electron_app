@@ -20,15 +20,24 @@ exports.addClient = function(idCall, phone, name, rut, comuna){
 
 exports.getClients = function(op) {
     db.find({}, function(error, clients){
+        console.log(clients)
         if(clients){
             op(clients);
         }
     })
 }
 
-exports.getClient = function(idCall) {
-    db.findOne({idCall: idCall}, function(error, newObject){
-        /* console.log(newObject) */
-        return newObject
+exports.getClient = function(idCall, op) {
+    db.findOne({idCall: idCall}, function(error, newObject){        
+        if(newObject){
+            /* console.log(newObject) */
+            op(newObject)
+        }
+    })
+}
+
+exports.deleteClients = function(op){
+    db.remove({}, {multi: true}, function(err, numRemoved){
+        /* console.log(numRemoved) */
     })
 }

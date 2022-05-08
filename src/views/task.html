@@ -75,7 +75,12 @@
     <script>
         const { ipcRenderer } = require('electron');
         const db = require('../js/database');
+
         const selectID = document.querySelector('#selectID')
+        const box = document.querySelector('#box')
+        const btn = document.querySelector('#btn');
+        const radioButtons = document.querySelectorAll('input[name="Test"]');
+        const textarea = document.querySelector('#textarea'); 
 
         db.getClients((clients) => {
             for(const client of clients){
@@ -85,18 +90,23 @@
                 selectID.innerHTML += newTemplateClients
             }
         })
-        const box = document.querySelector('#box')
+
         btnSearch.addEventListener('click', () => {
             const selectValue = selectID.value
-            db.getClient(selectValue, (e, obj) => {
-                console.log(obj)
+            db.getClient(selectValue, (clients) => {
+                console.log(clients)
+                const templateClient = `
+                    <p>${clients.idCall}</p>
+                    <p>${clients.phone}</p>
+                    <p>${clients.name}</p>
+                    <p>${clients.rut}</p>
+                    <p>${clients.comuna}</p>
+                `
+                box.innerHTML += templateClient
             })
-            /* console.log(selectValue) */
+            box.innerHTML = ''
         })
 
-        const btn = document.querySelector('#btn');
-        const radioButtons = document.querySelectorAll('input[name="Test"]');
-        const textarea = document.querySelector('#textarea');
         btn.addEventListener('click', () => {
             let selectedTest;
             let date = new Date();

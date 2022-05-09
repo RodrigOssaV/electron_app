@@ -37,11 +37,12 @@
 
     <script>
         const { ipcRenderer } = require('electron');
-        const products = document.querySelector('#products');
         const db = require('../js/database');
+
+        const products = document.querySelector('#products');
         const deleteBtn = document.querySelector('#deleteBtn')
 
-        db.getClients((clients) => {
+        /* db.getClients((clients) => {
             for(const client of clients){
                 const newProductTemplate = `
                     <tr>
@@ -54,13 +55,9 @@
                 `;
                 products.innerHTML += newProductTemplate;
             }            
-        })
-
-        deleteBtn.addEventListener('click', () => {
-            db.deleteClients()
-        })
+        })  */
         
-        /* ipcRenderer.on('product:new', (event, newProduct) => {
+        ipcRenderer.on('product:new', (event, newProduct) => {
             const newProductTemplate = `
                     <tr>
                         <td>${newProduct.idCall}</td>
@@ -71,16 +68,21 @@
                     </tr>
             `;
             products.innerHTML += newProductTemplate;
-            const btns = document.querySelectorAll('.btn.btn-danger');
+            /* const btns = document.querySelectorAll('.btn.btn-danger');
             btns.forEach(btn => {
                 btn.addEventListener('click', e => {
                     e.target.parentElement.remove();
+                })
+            }) */
+            deleteBtn.addEventListener('click', () => {
+                db.deleteClients((op) => {
+                    products.innerHTML = '';
                 })
             })
         });
         ipcRenderer.on('products:remove-all', e => {
             products.innerHTML = '';
-        }) */
+        })
     </script>
 </body>
 </html>

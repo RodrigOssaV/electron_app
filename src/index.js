@@ -15,8 +15,9 @@ let taskWindow
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 450,
+        height: 800,
+        maximizable: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -39,7 +40,8 @@ app.on('ready', () => {
 function createNewProductWindow(){
     newProductWindow = new BrowserWindow({
         width: 400,
-        height: 600,
+        height: 420,
+        resizable: false,
         title: 'Add a New Product',
         webPreferences: {
             nodeIntegration: true,
@@ -55,15 +57,13 @@ function createNewProductWindow(){
 
     newProductWindow.on('closed', () => {
         newProductWindow = null
-        /* require('dialog').showMessageBox({
-            message: "Close button has been pressed!",
-            buttons: ["OK"]
-        }) */
     })
 }
 
 function createTaskWindow(){
     taskWindow = new BrowserWindow({
+        width: 800,
+        height: 600, 
         title: 'Task',
         webPreferences: {
             nodeIntegration: true,
@@ -105,12 +105,12 @@ const templateMenu = [
                     createTaskWindow()
                 }
             },
-            {
+            /* {
                 label: 'Remove All Products',
                 click(){
                     mainWindow.webContents.send('products:remove-all');
                 }
-            },
+            }, */
             {
                 label: 'Exit',
                 accelerator: process.platform == 'darwin' ? 'command+Q' : 'Ctrl+Q',

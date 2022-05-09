@@ -9,122 +9,87 @@
     <title>Tasks</title>
 </head>
 <body>
-    <div class="columns m-1 is-multiline">
+    <div class="columns m-1 is-gapless is-multiline">
+
+        <div class="column is-one-quarter"></div>
+
         <div class="column is-half">
-            <div class="field">
-                <label for="" class="label">SSTT Classic</label>
+
+            <div class="box">
                 <div class="control">
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="uno" value="LOS"> Luz LOS
-                    </label>
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="dos" value="2"> Deco Offline
-                    </label>
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="tres" value="3"> Change Password
-                    </label>
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="cuatro" value="4"> Inet Intermitente
-                    </label>
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="cinco" value="5"> Low Channel
-                    </label>
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="seis" value="6"> Low Levels Rx
-                    </label>
-                    <label for="" class="radio">
-                        <input type="radio" name="Test" id="siete" value="7"> Other
-                    </label>
+                    <div class="select is-fullwidth">
+                        <select name="client" id="selectID">
+                        </select>
+                    </div>
+                </div>
+    
+                <button class="button is-primary is-fullwidth mt-2" id="btnSearch">
+                    Search
+                </button>
+            </div>
+
+        </div>
+
+        <div class="column is-one-quarter"></div>
+
+        <div class="column is-half">
+
+            <div class="box" id="boxClient">
+            </div>
+
+            <!-- <div class="box" id="textarea"></div> -->
+            <!-- <textarea name="" id="textArea" cols="10" rows="10" class="textarea mt-1"></textarea> -->
+        </div>
+
+        <div class="column is-half">
+
+            <div class="box">
+
+                <div class="field">
+                    <label for="" class="label">SSTT Classic</label>
+                    <div class="control">
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="uno" value="LOS"> Luz LOS
+                        </label>
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="dos" value="2"> Deco Offline
+                        </label>
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="tres" value="3"> Change Password
+                        </label>
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="cuatro" value="4"> Inet Intermitente
+                        </label>
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="cinco" value="5"> Low Channel
+                        </label>
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="seis" value="6"> Low Levels Rx
+                        </label>
+                        <label for="" class="radio">
+                            <input type="radio" name="Test" id="siete" value="7"> Other
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="" class="label">SSTT Advanced</label>
+                    <!-- <div class="control">
+                        <input type="text" class="input" placeholder="ONT" id="ont">
+                        <input type="text" class="input" placeholder="OLT" id="olt">
+                        <input type="text" class="input" id="nodo" placeholder="NODO">
+                    </div> -->
                 </div>
             </div>
 
-            <div class="field">
-                <label for="" class="label">SSTT Advanced</label>
-                <div class="control">
-                    <input type="text" class="input" placeholder="ONT" id="ont">
-                    <input type="text" class="input" placeholder="OLT" id="olt">
-                    <input type="text" class="input" id="nodo" placeholder="NODO">
-                </div>
-            </div>
-
-            <button class="button is-primary is-fullwidth" id="btn">
+            <button class="button is-primary is-fullwidth" id="btnGenerate">
                 Generate
             </button>
 
-            <textarea name="" id="textarea" cols="10" rows="10" class="textarea mt-1"></textarea>
-
         </div>
 
-        <div class="column is-half">
-            <div class="control">
-                <div class="select is-fullwidth">
-                    <select name="client" id="selectID">
-                    </select>
-                </div>
-            </div>
-
-            <button class="button is-primary is-fullwidth mt-2" id="btnSearch">
-                Search
-            </button>
-
-            <div class="control">
-                <div class="box" id="box"></div>
-            </div>
-        </div>
     </div>
-    <script>
-        const { ipcRenderer } = require('electron');
-        const db = require('../js/database');
-
-        const selectID = document.querySelector('#selectID')
-        const box = document.querySelector('#box')
-        const btn = document.querySelector('#btn');
-        const radioButtons = document.querySelectorAll('input[name="Test"]');
-        const textarea = document.querySelector('#textarea'); 
-
-        db.getClients((clients) => {
-            for(const client of clients){
-                const newTemplateClients = `
-                    <option value="${client.idCall}">${client.idCall}</option>
-                `
-                selectID.innerHTML += newTemplateClients
-            }
-        })
-
-        btnSearch.addEventListener('click', () => {
-            const selectValue = selectID.value
-            db.getClient(selectValue, (clients) => {
-                console.log(clients)
-                const templateClient = `
-                    <p>${clients.idCall}</p>
-                    <p>${clients.phone}</p>
-                    <p>${clients.name}</p>
-                    <p>${clients.rut}</p>
-                    <p>${clients.comuna}</p>
-                `
-                box.innerHTML += templateClient
-            })
-            box.innerHTML = ''
-        })
-
-        btn.addEventListener('click', () => {
-            let selectedTest;
-            let date = new Date();
-            for (const radioButton of radioButtons){
-                if(radioButton.checked){
-                    selectedTest = radioButton.value;
-                    break;
-                }
-            }
-            const prueba = {
-                prueba: selectedTest
-            }
-            console.log(selectedTest);
-            const newTestTemplate = `
-                SOP ${date.toLocaleDateString()} - ${prueba.prueba}
-            `
-            textarea.innerText = newTestTemplate;
-        });
+    <script src="../js/task.js">
     </script>
 </body>
 </html>

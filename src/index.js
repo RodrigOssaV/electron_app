@@ -12,6 +12,7 @@ if(process.env.NODE_ENV !== 'production'){
 let mainWindow
 let newProductWindow
 let taskWindow
+let ssttWindow
 
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
@@ -82,6 +83,26 @@ function createTaskWindow(){
     })
 }
 
+function createSSTTWindow(){
+    ssttWindow = new BrowserWindow({
+        title: 'new SSTT',
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    })
+
+    ssttWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'views/new-sstt.html'),
+        protocol: 'file',
+        slashes: true
+    }))
+
+    ssttWindow.on('close', () => {
+        ssttWindow = null
+    })
+}
+
 ipcMain.on('product:new', (event, newProduct) => {
     mainWindow.webContents.send('product:new', newProduct)
     newProductWindow.close()    
@@ -105,12 +126,13 @@ const templateMenu = [
                     createTaskWindow()
                 }
             },
-            /* {
-                label: 'Remove All Products',
+            {
+                label: 'SSTT',
+                accelerator: 'Ctrl+D',
                 click(){
-                    mainWindow.webContents.send('products:remove-all');
+                    createSSTTWindow()
                 }
-            }, */
+            },
             {
                 label: 'Exit',
                 accelerator: process.platform == 'darwin' ? 'command+Q' : 'Ctrl+Q',

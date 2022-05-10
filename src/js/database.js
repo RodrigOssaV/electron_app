@@ -20,7 +20,7 @@ exports.addClient = function(idCall, phone, name, rut, comuna){
 
 exports.getClients = function(op) {
     db.find({}, function(error, clients){
-        console.log(clients)
+        /* console.log(clients) */
         if(clients){
             op(clients);
         }

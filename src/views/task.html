@@ -34,7 +34,32 @@
 
         <div class="column is-half">
 
-            <div class="box" id="boxClient">
+            <div class="box">
+                <div class="columns">
+                    <div class="column is-half"  id="boxClient">
+                        
+                    </div>
+                    <div class="column is-half">                    
+                        <div class="control">
+                            <label for="" class="label is-size-7">ONT</label>
+                            <input type="text" class="input is-small"  value="" placeholder="ONT" id="ont">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label is-size-7">Nodo</label>
+                            <input type="text" class="input is-small" value="" placeholder="Nodo" id="nodo">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label is-size-7">OLT</label>
+                            <input type="text" class="input is-small" value="" placeholder="OLT" id="olt">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label is-size-7">.</label>
+                            <button class="button is-primary is-size-7" id="btnGenerateExtra">
+                                Generate
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- <div class="box" id="textarea"></div> -->
@@ -80,6 +105,7 @@
                         <input type="text" class="input" id="nodo" placeholder="NODO">
                     </div> -->
                 </div>
+                
             </div>
 
             <button class="button is-primary is-fullwidth" id="btnGenerate">

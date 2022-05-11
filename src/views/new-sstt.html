@@ -4,9 +4,90 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BULMA CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <title>New SSTT</title>
 </head>
 <body>
-    
+    <div class="columns is-mobile">
+        <div class="column">
+            <div class="field">
+                <input type="text" name="" id="name" class="input" placeholder="Name SSTT" value="">
+            </div>
+            <div class="field">
+                <!-- <input type="text" name="" id="description" class="input" placeholder="Description"> -->
+                <textarea class="textarea" name="" id="description" cols="30" rows="10" value=""></textarea>
+            </div>
+            <button class="button is-primary mt5 is-fullwidth" id="btnCreateSSTT">
+                Save
+            </button>
+            <div class="box">
+                <table class="table is-fullwidth is-align-content-center">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody id="boxSSTT">
+                    </tbody>
+                </table>
+                <button class="button is-danger is-fullwidth" id="btnDeleteAll">
+                    DeleteAll
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* const { ipcRenderer } = require('electron'); */
+        const ssttdb = require('../js/ssttdb')
+        const btnCreateSSTT = document.querySelector('#btnCreateSSTT')
+        const btnDeleteAll = document.querySelector('#btnDeleteAll')
+
+        reloadBox()
+
+        btnDeleteAll.addEventListener('click', () => {
+            ssttdb.deleteSSTTs((op) => {
+                boxSSTT.innerHTML = ''
+            })
+            reloadBox()
+        })
+
+        btnCreateSSTT.addEventListener('click', () => {
+            const name = document.querySelector('#name').value
+            const description = document.querySelector('#description').value
+            const newSSTT = {
+                name: name,
+                description: description
+            }
+            /* console.log(newSSTT) */
+            ssttdb.addSSTT(name, description)
+            reloadBox()
+        })
+
+        function reloadBox(){
+            ssttdb.getSSTTs((sstts) => {
+                console.log(sstts)
+                for(const sstt of sstts){
+                    newTemplate = `
+                        <tr>
+                            <td>${sstt.name}</td>
+                            <td>${sstt.description}</td>
+                            <td>
+                                <button class="button is-danger is-small" value="${sstt._id}" name="id" id="deleteID">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    `
+                    boxSSTT.innerHTML += newTemplate
+                }
+            })
+        }
+        
+
+
+    </script>
 </body>
 </html>

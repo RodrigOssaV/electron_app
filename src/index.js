@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, ipcRenderer } = require('electron')
 
 const path = require('path')
 const url = require('url')
@@ -106,7 +106,11 @@ function createSSTTWindow(){
 ipcMain.on('product:new', (event, newProduct) => {
     mainWindow.webContents.send('product:new', newProduct)
     newProductWindow.close()    
-}) 
+})
+
+ipcMain.on('SSTT:new', (event, newSSTT) => {
+    ssttWindow.webContents.send('SSTT:new', newSSTT)
+})
 
 const templateMenu = [
     {

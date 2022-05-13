@@ -1,11 +1,11 @@
 const { ipcRenderer } = require('electron');
 const db = require('../js/database');
+const ssttdb = require('../js/ssttdb')
 
 const selectID = document.querySelector('#selectID')
 const boxClient = document.querySelector('#boxClient')
+const showSSTT = document.querySelector('#showSSTT')
 const btnGenerate = document.querySelector('#btnGenerate')
-const radioButtons = document.querySelectorAll('input[name="Test"]')
-const textArea = document.querySelector('#textArea')
 const newClient = []
 
 db.getClients((clients) => {
@@ -16,6 +16,43 @@ db.getClients((clients) => {
         selectID.innerHTML += newTemplateClients
     }
 })
+
+ssttdb.getSSTTs((sstts) => {
+    console.log(sstts)
+    for(const sstt of sstts){
+        const newTemplateSSTT = `
+            <label for="" class="radio">
+                <input type="radio" name="Test" value="${sstt.description}"> ${sstt.name}
+            </label>
+        `
+        showSSTT.innerHTML += newTemplateSSTT
+        const radioButtons = document.querySelectorAll('input[name="Test"]')
+        btnGenerate.addEventListener('click', () => {
+            let selectedTest;
+            let date = new Date();
+            /* console.log(radioButtons) */
+            for (const radioButton of radioButtons){
+                if(radioButton.checked){
+                    selectedTest = radioButton.value;
+                    break;
+                }
+            }
+            const prueba = {
+                prueba: selectedTest
+            }
+            console.log(selectedTest)
+            console.log(newClient)
+            const newTestTemplate = `
+                SOP ${date.toLocaleDateString()} - ${prueba.prueba}
+                ID: ${newClient[0].idCall}
+                TEL: ${newClient[0].tel}
+                NOM: ${newClient[0].nom}
+            `
+            boxClient.innerText = newTestTemplate;
+        })
+    }
+})
+
 
 btnSearch.addEventListener('click', () => {
     const selectValue = selectID.value
@@ -62,23 +99,4 @@ btnSearch.addEventListener('click', () => {
 
 
 
-btnGenerate.addEventListener('click', () => {
-    let selectedTest;
-    let date = new Date();
-    for (const radioButton of radioButtons){
-        if(radioButton.checked){
-            selectedTest = radioButton.value;
-            break;
-        }
-    }
-    const prueba = {
-        prueba: selectedTest
-    }
-    /* console.log(selectedTest)
-    console.log(newClient) */
-    const newTestTemplate = `
-        SOP ${date.toLocaleDateString()} - ${prueba.prueba}
-        ID: ${newClient[0].idCall}
-    `
-    boxClient.innerText = newTestTemplate;
-});
+

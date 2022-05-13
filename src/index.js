@@ -108,10 +108,6 @@ ipcMain.on('product:new', (event, newProduct) => {
     newProductWindow.close()    
 })
 
-ipcMain.on('SSTT:new', (event, newSSTT) => {
-    ssttWindow.webContents.send('SSTT:new', newSSTT)
-})
-
 const templateMenu = [
     {
         label: 'File',

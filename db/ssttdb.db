@@ -3,4 +3,6 @@
 {"name":"RANGE OUT","description":"Cliente indica que tiene problema con los servicios. Se verifican los niveles fuera de rango.\nFavor asistir para regularizar niveles y llamar antes de agendar visita técnica.\nRxONT: \nRxOLT: ","_id":"2satCLrrkzRhJh3n"}
 {"name":"RESET PASSWORD","description":"Cliente solicita cambio de credenciales para acceder a redes 2.4g y 5g. Servicios Ok.","_id":"7X4573mOhjVcxYcp"}
 {"name":"LOW CHANNEL","description":"Cliente indica que le faltan canales. Se aprovisiona la red, se realiza una búsqueda de canales. Servicio retoma OK.","_id":"BwcnneWpe3GADvWt"}
+{"name":"ORNA","description":"THE BEST JUEGO","_id":"RpEg7hXHrralhmm0"}
 {"name":"DECO OFFLINE","description":"Cliente con problemas de decodificador. Cliente indica que no enciende, se prueba en otros enchufes sin tener respuesta. Favor visitar y llamar antes de agendar visita técnica.","_id":"UMieUrYFuYtF0CP9"}
+{"name":"ORNA","description":"THE BEST JUEGO","_id":"klUl2wOCStHIFtwP"}

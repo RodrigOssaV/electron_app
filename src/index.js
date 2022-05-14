@@ -43,7 +43,7 @@ function createNewProductWindow(){
         width: 400,
         height: 420,
         resizable: false,
-        title: 'Add a New Product',
+        title: 'Nueva llamada',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -65,7 +65,7 @@ function createTaskWindow(){
     taskWindow = new BrowserWindow({
         width: 800,
         height: 600, 
-        title: 'Task',
+        title: 'Tarea',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -85,7 +85,7 @@ function createTaskWindow(){
 
 function createSSTTWindow(){
     ssttWindow = new BrowserWindow({
-        title: 'new SSTT',
+        title: 'Comentarios',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -113,22 +113,22 @@ const templateMenu = [
         label: 'File',
         submenu: [
             {
-                label: 'New Client',
-                accelerator: 'Ctrl+A',
+                label: 'Nueva llamada',
+                accelerator: 'Ctrl+D',
                 click(){
                     createNewProductWindow()
                 }
             },
             {
-                label: 'Task',
-                accelerator: 'Ctrl+S',
+                label: 'Tareas',
+                accelerator: 'Ctrl+F',
                 click(){
                     createTaskWindow()
                 }
             },
             {
-                label: 'SSTT',
-                accelerator: 'Ctrl+D',
+                label: 'Descripción Tareas',
+                accelerator: 'Ctrl+G',
                 click(){
                     createSSTTWindow()
                 }

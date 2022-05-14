@@ -36,8 +36,11 @@ exports.getClient = function(idCall, op) {
     })
 }
 
-exports.deleteClients = function(op){
+exports.deleteClients = function(){
     db.remove({}, {multi: true}, function(err, numRemoved){
-        /* console.log(numRemoved) */
+        console.log('delete data: ', numRemoved)
+        /* if(numRemoved){
+            op(numRemoved)
+        } */
     })
 }

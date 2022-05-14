@@ -1,3 +1,4 @@
+{"name":"NO RING PHONE","description":"Cliente indica que tiene problemas con el teléfono fijo. Cliente indica que no tiene tono. Se verifica cableado, se aprovisiona la red, se verifica que teléfono tenga tono. Se realiza llamadas cruzadas. Servicio retomo Ok.","_id":"1vsyNb9SxWecoFnk"}
 {"name":"LUZ LOS","description":"Cliente presenta problemas en sus servicios. Cliente con luz LOS en ONT. Se verifica que sea una falla puntual. Favor visitar y llamar antes de agendar visita técnica.","_id":"2JO60JukncT3reIw"}
 {"name":"RANGE OUT","description":"Cliente indica que tiene problema con los servicios. Se verifican los niveles fuera de rango.\nFavor asistir para regularizar niveles y llamar antes de agendar visita técnica.\nRxONT: \nRxOLT: ","_id":"2satCLrrkzRhJh3n"}
 {"name":"RESET PASSWORD","description":"Cliente solicita cambio de credenciales para acceder a redes 2.4g y 5g. Servicios Ok.","_id":"7X4573mOhjVcxYcp"}

@@ -3,7 +3,8 @@ const db = require('../js/database');
 const ssttdb = require('../js/ssttdb')
 
 const selectID = document.querySelector('#selectID')
-const boxClient = document.querySelector('#boxClient')
+const boxClientOne = document.querySelector('#boxClientOne')
+const boxClientTwo = document.querySelector('#boxClientTwo')
 const showSSTT = document.querySelector('#showSSTT')
 const btnGenerate = document.querySelector('#btnGenerate')
 const newClient = []
@@ -15,6 +16,52 @@ db.getClients((clients) => {
         `
         selectID.innerHTML += newTemplateClients
     }
+})
+
+btnSearch.addEventListener('click', () => {
+    const selectValue = selectID.value
+    db.getClient(selectValue, (clients) => {
+        /* console.log(clients) */
+        const templateClient = `
+            <div class="control">
+                <label for="" class="label is-size-7">ID</label>
+                <input type="text" class="input is-small" disabled value="${clients.idCall}">
+            </div>
+            <div class="control">
+                <label for="" class="label is-size-7">Teléfono</label>
+                <input type="text" class="input is-small" disabled value="${clients.phone}">
+            </div>
+        `
+        boxClientOne.innerHTML += templateClient
+        const templateClientTwo = `
+            <div class="control">
+                <label for="" class="label is-size-7">Nombre</label>
+                <input type="text" class="input is-small" disabled value="${clients.name}">
+            </div>
+            <div class="control">
+                <label for="" class="label is-size-7">Comuna</label>
+                <input type="text" class="input is-small" disabled value="${clients.comuna}">
+            </div> 
+        `
+        boxClientTwo.innerHTML +=templateClientTwo
+        const btnGenerateExtra = document.querySelector('#btnGenerateExtra')
+        btnGenerateExtra.addEventListener('click', () => {
+            const ont = document.querySelector('#ont').value
+            const nodo = document.querySelector('#nodo').value
+            const olt = document.querySelector('#olt').value
+            const clientExtraInfo = {
+                idCall: clients.idCall,
+                rut: clients.rut,
+                tel: clients.phone,
+                nom: clients.name,
+                ont: ont,
+                nodo: nodo,
+                olt: olt
+            }
+            newClient.push(clientExtraInfo)       
+        })
+    })
+    boxClient.innerHTML = ''
 })
 
 ssttdb.getSSTTs((sstts) => {
@@ -54,48 +101,7 @@ ssttdb.getSSTTs((sstts) => {
 })
 
 
-btnSearch.addEventListener('click', () => {
-    const selectValue = selectID.value
-    db.getClient(selectValue, (clients) => {
-        /* console.log(clients) */
-        const templateClient = `
-        <div class="control">
-            <label for="" class="label is-size-7">ID</label> 
-            <input type="text" class="input is-small" disabled value="${clients.idCall}" placeholder="ID">
-        </div>
-        <div class="control">
-            <label for="" class="label is-size-7">Teléfono</label>
-            <input type="text" class="input is-small" disabled value="${clients.phone}" placeholder="TEL">
-        </div>
-        <div class="control">
-            <label for="" class="label is-size-7">Nombre</label>
-            <input type="text" class="input is-small" disabled placeholder="Nombre" value="${clients.name}">
-        </div>
-        <div class="control">
-            <label for="" class="label is-size-7">RUT</label>
-            <input type="text" class="input is-small" disabled placeholder="Nombre" value="${clients.rut}">
-        </div>
-        `
-        boxClient.innerHTML += templateClient
-        const btnGenerateExtra = document.querySelector('#btnGenerateExtra')
-        btnGenerateExtra.addEventListener('click', () => {
-            const ont = document.querySelector('#ont').value
-            const nodo = document.querySelector('#nodo').value
-            const olt = document.querySelector('#olt').value
-            const clientExtraInfo = {
-                idCall: clients.idCall,
-                rut: clients.rut,
-                tel: clients.phone,
-                nom: clients.name,
-                ont: ont,
-                nodo: nodo,
-                olt: olt
-            }
-            newClient.push(clientExtraInfo)       
-        })
-    })
-    boxClient.innerHTML = ''
-})
+
 
 
 

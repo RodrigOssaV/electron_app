@@ -19,7 +19,7 @@ const btnSearch = document.querySelector('#btnSearch')
 btnSearch.addEventListener('click', () => {
     const selectValue = selectID.value
     db.getClient(selectValue, (clients) => {
-        /* console.log(clients) */
+        console.log(clients)
         const templateClient = `
             <div class="control">
                 <label for="" class="label is-size-7">ID</label>
@@ -45,10 +45,11 @@ btnSearch.addEventListener('click', () => {
     })
     boxClientOne.innerHTML = ''
     boxClientTwo.innerHTML = ''
+    btnSearch.disabled = true
 })
 
 const newClient = []
-console.log('This is list new client: ', newClient.length)
+/* console.log('This is list new client: ', newClient.length) */
 const boxTemplateClient = document.querySelector('#boxTemplateClient')
 const btnGenerateExtra = document.querySelector('#btnGenerateExtra')
 btnGenerateExtra.addEventListener('click', () => {
@@ -80,7 +81,8 @@ btnGenerateExtra.addEventListener('click', () => {
         <p>Comuna: ${newTemplate.optionComuna}</p>
     `
     boxTemplateClient.innerHTML += newTemplateClient
-    console.log('This is list new client first insert: ', newClient.length)
+    /* console.log('This is list new client first insert: ', newClient.length) */
+    btnGenerateExtra.disabled = true
 })
 
 const boxClient = document.querySelector('#boxClient')
@@ -95,8 +97,10 @@ ssttdb.getSSTTs((sstts) => {
     }
 })
 const btnGenerate = document.querySelector('#btnGenerate')
+const ssttAdvanced = document.querySelector('#ssttAdvanced')
 /* const radioButtons = document.querySelectorAll('input[name="Test"]') */
 btnGenerate.addEventListener('click', () => {
+    boxClient.innerHTML = ''
     let date = new Date();
     /* console.log(radioButtons) */
     /* for (const radioButton of radioButtons){
@@ -105,22 +109,38 @@ btnGenerate.addEventListener('click', () => {
             break;
         }
     } */
-    const selectedTest = document.querySelector('#selectedTest').value
+    const selectedTest = showSSTT.value
     const prueba = {
         prueba: selectedTest
     }
-    console.log(selectedTest)
-    console.log(newClient)
-    const newTestTemplate = `
-        
-        SOP ${date.toLocaleDateString()} - ${prueba.prueba}
-        ID: ${newClient[0].optionIDCall}
-        TEL: ${newClient[0].optionPhone}
-        NOM: ${newClient[0].optionName}
+    /* console.log(selectedTest)
+    console.log(newClient) */
+    const newTestTemplate = 
+    `SOP ${date.toLocaleDateString()} - ${prueba.prueba}
+    ID: ${newClient[0].optionIDCall}
+    TEL: ${newClient[0].optionPhone}
+    NOM: ${newClient[0].optionName}
     `
-    boxClient.innerText = newTestTemplate;
+    boxClient.innerHTML = newTestTemplate;
 })
 
+function generateSSTTAdvanced(option, newClient){
+    console.log('this is option enter switch: ', option)
+    switch (option) {
+        case '1':
+            const templateFallaMasiva = 
+            `Nombre: ${newClient[0].optionName}
+            ONT: ${newClient[0].optionONT}`
+            boxClient.innerHTML = templateFallaMasiva
+            break;
+        case '2':
+            console.log('this is option 2')
+            break;
+        default:
+            console.log('this is option 3')
+            break;
+    }
+}
 
 
 

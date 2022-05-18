@@ -64,7 +64,7 @@ function createNewProductWindow(){
 function createTaskWindow(){
     taskWindow = new BrowserWindow({
         width: 800,
-        height: 600, 
+        height: 620, 
         title: 'Tarea',
         webPreferences: {
             nodeIntegration: true,

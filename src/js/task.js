@@ -13,13 +13,15 @@ db.getClients((clients) => {
     }
 })
 
+let optionRUT
 const boxClientOne = document.querySelector('#boxClientOne')
 const boxClientTwo = document.querySelector('#boxClientTwo')
 const btnSearch = document.querySelector('#btnSearch')
 btnSearch.addEventListener('click', () => {
     const selectValue = selectID.value
     db.getClient(selectValue, (clients) => {
-        console.log(clients)
+        /* console.log(clients) */
+        optionRUT = clients.rut
         const templateClient = `
             <div class="control">
                 <label for="" class="label is-size-7">ID</label>
@@ -61,6 +63,7 @@ btnGenerateExtra.addEventListener('click', () => {
     const optionNODO = document.querySelector('#nodo').value
     const optionOLT = document.querySelector('#olt').value
     const newTemplate = {
+        optionRUT,
         optionIDCall,
         optionPhone,
         optionName,
@@ -97,11 +100,10 @@ ssttdb.getSSTTs((sstts) => {
     }
 })
 const btnGenerate = document.querySelector('#btnGenerate')
-const ssttAdvanced = document.querySelector('#ssttAdvanced')
+/* const ssttAdvanced = document.querySelector('#ssttAdvanced') */
 /* const radioButtons = document.querySelectorAll('input[name="Test"]') */
 btnGenerate.addEventListener('click', () => {
-    boxClient.innerHTML = ''
-    let date = new Date();
+    boxClient.innerHTML = ''    
     /* console.log(radioButtons) */
     /* for (const radioButton of radioButtons){
         if(radioButton.checked){
@@ -110,34 +112,60 @@ btnGenerate.addEventListener('click', () => {
         }
     } */
     const selectedTest = showSSTT.value
-    const prueba = {
-        prueba: selectedTest
-    }
-    /* console.log(selectedTest)
-    console.log(newClient) */
-    const newTestTemplate = 
-    `SOP ${date.toLocaleDateString()} - ${prueba.prueba}
-    ID: ${newClient[0].optionIDCall}
-    TEL: ${newClient[0].optionPhone}
-    NOM: ${newClient[0].optionName}
-    `
-    boxClient.innerHTML = newTestTemplate;
+    generateSSTTAdvanced(selectedTest, newClient)
 })
 
 function generateSSTTAdvanced(option, newClient){
-    console.log('this is option enter switch: ', option)
+    let date = new Date()
+    const prueba = {
+        prueba: option
+    }
+    /* console.log('this is option enter switch: ', option) */
     switch (option) {
         case '1':
             const templateFallaMasiva = 
-            `Nombre: ${newClient[0].optionName}
-            ONT: ${newClient[0].optionONT}`
+            `ID: ${newClient[0].optionIDCall}\nNombre: ${newClient[0].optionName}\nRUT: ${newClient[0].optionRUT}\nTEL: ${newClient[0].optionPhone}\nONT/EMTA: ${newClient[0].optionONT}\nOLT: ${newClient[0].optionOLT}\nNODO: ${newClient[0].optionNODO}\nOBS: 
+            `
             boxClient.innerHTML = templateFallaMasiva
             break;
         case '2':
-            console.log('this is option 2')
+            const templateSondeoLlamada = 
+            `com: ${newClient[0].optionComuna} // mot: 
+            `
+            boxClient.innerHTML = templateSondeoLlamada
             break;
-        default:
-            console.log('this is option 3')
+        case '3':
+            const templateLatenciaJuego = 
+            `Nombre: ${newClient[0].optionName}\nRUT: ${newClient[0].optionRUT}\nTEL: ${newClient[0].optionPhone}\nONT/EMTA: ${newClient[0].optionONT}\nOLT: ${newClient[0].optionOLT}\nNODO: ${newClient[0].optionNODO}\nIP:\nOBS:
+            `
+            boxClient.innerHTML = templateLatenciaJuego
+            break;
+        case '4':
+            const templateNoRespondeLlamada = 
+            `Se corta llamada y se devuelde en 3 oportunidades sin tener respuesta. No se da invitación a encuesta ni número de orden.\nID: ${newClient[0].optionIDCall} -
+            `
+            boxClient.innerHTML = templateNoRespondeLlamada
+            break;
+        case '5':
+            const templatePersonal = `
+            ID: ${newClient[0].optionIDCall}
+            Nombre: ${newClient[0].optionName}
+            RUT: ${newClient[0].optionRUT}
+            TEL: ${newClient[0].optionPhone}
+            ONT/EMTA: ${newClient[0].optionONT}
+            OLT: ${newClient[0].optionOLT}
+            NODO: ${newClient[0].optionNODO}
+            OBS:
+            `
+            boxClient.innerHTML = templatePersonal
+            break;
+        default:            
+            /* console.log(selectedTest)
+            console.log(newClient) */
+            const newTestTemplate =
+            `SOP ${date.toLocaleDateString()} - ${prueba.prueba}\nID: ${newClient[0].optionIDCall}\nTEL: ${newClient[0].optionPhone}
+            `
+            boxClient.innerHTML = newTestTemplate
             break;
     }
 }

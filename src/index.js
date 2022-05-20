@@ -49,7 +49,7 @@ function createNewProductWindow(){
             contextIsolation: false,
         }
     })
-    /* newProductWindow.setMenu(null) */
+    newProductWindow.setMenu(null)
     newProductWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'views/new-product.html'),
         protocol: 'file',
@@ -71,7 +71,7 @@ function createTaskWindow(){
             contextIsolation: false
         }
     })
-    
+    taskWindow.setMenu(null)
     taskWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'views/task.html'),
         protocol: 'file',
@@ -91,7 +91,7 @@ function createSSTTWindow(){
             contextIsolation: false
         }
     })
-
+    ssttWindow.setMenu(null)
     ssttWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'views/new-sstt.html'),
         protocol: 'file',

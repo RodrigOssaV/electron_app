@@ -3293,3 +3293,4 @@ node_modules/yargs-parser/CHANGELOG.md
 node_modules/yargs-parser/LICENSE.txt
 node_modules/yargs-parser/package.json
 node_modules/yargs-parser/README.md
+release-builds/electron-tutorial-app-linux-x64/resources/app.asar
